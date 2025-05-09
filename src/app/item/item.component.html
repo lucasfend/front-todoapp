@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="item">
+    <div class="item-item">
+      <input
+        [id]="tarefa.descricao"
+        type="checkbox"
+        [checked]="tarefa.statusRealizada"
+        (change)="
+          tarefa.statusRealizada = !tarefa.statusRealizada;
+          modificaTarefa.emit()
+        "
+      />
+      <label [for]="tarefa.descricao">{{ tarefa.descricao }}</label>
+    </div>
+
+    <div *ngIf="!emEdicao" class="btn-wrapper">
+      <button class="btn" (click)="emEdicao = true">
+        <i class="ri-edit-box-line"></i>
+      </button>
+      <button class="btn-warn" (click)="onRemoverTarefa()">
+        <i class="ri-delete-bin-5-fill"></i>
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="emEdicao" class="edicao">
+    <input
+      class="sm-text-input"
+      #editedItem
+      placeholder="Edite o nome da tarefa"
+      [value]="tarefa.descricao"
+    />
+    <div class="erro-validacao" *ngIf="erroEdicao">
+      ERRO: A tarefa não pode estar vazia.
+    </div>
+
+    <div class="btns">
+      <button class="btn-cancel" (click)="emEdicao = false">Cancelar</button>
+      <button class="btn-save" (click)="onSalvarEdicao(editedItem.value)">
+        Salvar
+      </button>
+    </div>
+  </div>
+</div>

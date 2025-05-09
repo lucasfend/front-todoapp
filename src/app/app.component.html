@@ -1,0 +1,34 @@
+<div class="main">
+  <h1>Lucas Ribeiro 247165 - Gustavo Dias 223993</h1>
+
+  <div class="input-group">
+    <input
+      class="lg-text-input"
+      #campoNovoItem
+      placeholder="Digite sua tarefa"
+      (keyup.enter)="
+        CREATE_tarefa(campoNovoItem.value); campoNovoItem.value = ''
+      "
+    />
+    <button
+      class="btn-primary"
+      (click)="CREATE_tarefa(campoNovoItem.value); campoNovoItem.value = ''"
+    >
+      Adicionar
+    </button>
+    <!-- Mensagem de erro quando a descrição estiver vazia -->
+    <span class="erro-validacao" *ngIf="mostrarErro">
+      ERRO: Por favor, digite uma tarefa.
+    </span>
+  </div>
+
+  <ul>
+    <li *ngFor="let tarefaDoLoop of arrayDeTarefas">
+      <app-item
+        [tarefa]="tarefaDoLoop"
+        (removerTarefa)="DELETE_tarefa($event)"
+        (modificaTarefa)="UPDATE_tarefa(tarefaDoLoop)"
+      ></app-item>
+    </li>
+  </ul>
+</div>
